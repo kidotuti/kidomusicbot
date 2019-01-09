@@ -142,7 +142,6 @@ async def queue_songs(con, skip, clear):
                                ['thumbnails']['default']['url'])
             pack.add_field(name="Requested by:", value=con.message.author.name)
             pack.set_footer(text='Music Bot, developed by Kido')
-            pack.color = #5ff5ee
 
             song = await bot.voice_client_in(con.message.server).create_ytdl_player(song_names[con.message.server.id][0], ytdl_options=opts, after=lambda: bot.loop.create_task(after_song(con, False, False)))
             servers_songs[con.message.server.id] = song
@@ -193,7 +192,6 @@ async def play(con, *, url):
                 pack.add_field(name="Requested by:",
                                value=con.message.author.name)
                 pack.set_footer(text='Music Bot, developed by Kido')
-                pack.color = #5ff5ee
                 msg = await bot.send_message(con.message.channel, embed=pack)
                 now_playing[con.message.server.id] = msg
                 song_names[con.message.server.id].pop(0)
