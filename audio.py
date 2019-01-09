@@ -10,7 +10,7 @@ def get_prefix(bot, msg):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
 
     # Notice how you can use spaces in prefixes. Try to keep them simple though.
-    prefixes = ['k.']
+    prefixes = ['k']
 
     me=['kido.']
 
@@ -70,7 +70,7 @@ async def set_player_status():
         servers_songs[i.id] = None
         paused[i.id] = False
         song_names[i.id] = []
-    print(200)
+    print('Kidodeptrai')
 
 
 async def bg():
@@ -141,6 +141,8 @@ async def queue_songs(con, skip, clear):
             pack.set_thumbnail(url=r['items'][0]['snippet']
                                ['thumbnails']['default']['url'])
             pack.add_field(name="Requested by:", value=con.message.author.name)
+            pack.set_footer(text='Music Bot, developed by Kido')
+            pack.color = #5ff5ee
 
             song = await bot.voice_client_in(con.message.server).create_ytdl_player(song_names[con.message.server.id][0], ytdl_options=opts, after=lambda: bot.loop.create_task(after_song(con, False, False)))
             servers_songs[con.message.server.id] = song
@@ -190,6 +192,8 @@ async def play(con, *, url):
                     url=r['items'][0]['snippet']['thumbnails']['default']['url'])
                 pack.add_field(name="Requested by:",
                                value=con.message.author.name)
+                pack.set_footer(text='Music Bot, developed by Kido')
+                pack.color = #5ff5ee
                 msg = await bot.send_message(con.message.channel, embed=pack)
                 now_playing[con.message.server.id] = msg
                 song_names[con.message.server.id].pop(0)
@@ -303,16 +307,4 @@ async def volume(con,vol:float):
     if player_status[con.message.server.id] == True:
         servers_songs[con.message.server.id].volume =vol;
 
-
-
-
-# if __name__ == "__main__":
-#     for extension in extensions:
-#         try:
-#             bot.load_extension(extension)
-#             print("{} loaded".format(extension))
-#         except Exception as error:
-#             print("Unable to load extension {} error {}".format(extension, error))
-
-
-bot.run(os.environ['BOT_TOKEN']) #do not post your bot token publically 
+bot.run(os.environ['BOT_TOKEN']) 
