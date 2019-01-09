@@ -10,7 +10,7 @@ def get_prefix(bot, msg):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
 
     # Notice how you can use spaces in prefixes. Try to keep them simple though.
-    prefixes = ['k']
+    prefixes = ['*']
 
     me=['kido.']
 
@@ -21,7 +21,7 @@ def get_prefix(bot, msg):
     return commands.when_mentioned_or(*prefixes)(bot, msg)
 
 
-bot = commands.Bot(command_prefix=get_prefix,description='A music bot for discord, developed by Kidodeptrai')
+bot = commands.Bot(command_prefix=get_prefix,description='A music bot for discord, developed by Kido')
 
 bot.remove_command('help')
 
@@ -80,6 +80,7 @@ async def bg():
 async def on_ready():
     bot.loop.create_task(bg())
     print(bot.user.name)
+    await bot.change_presence(game=discord.Game(name="Mua Gaming Gear, Console, Áo TTG tại TTGShop  27 Võ Văn Dũng, Đống Đa, Hà Nội. Website: ttgshop.vn"))
 
 
 @bot.event
@@ -137,11 +138,12 @@ async def queue_songs(con, skip, clear):
             r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(
                 song_names[con.message.server.id][0])).json()
             pack = discord.Embed(title=r['items'][0]['snippet']['title'],
-                                 url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId']))
+                                 url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId'])
+                                 colour=#1ce4b6)
             pack.set_thumbnail(url=r['items'][0]['snippet']
                                ['thumbnails']['default']['url'])
             pack.add_field(name="Requested by:", value=con.message.author.name)
-            pack.set_footer(text='Music Bot, developed by Kido')
+            pack.set_footer(text='TTG Bot, developed by Kido', icon_url='https://image.thanhnien.vn/665/uploaded/badiep/2018_03_12/14720536_1797565987159824_7956249866022643798_n_njek.jpg')
 
             song = await bot.voice_client_in(con.message.server).create_ytdl_player(song_names[con.message.server.id][0], ytdl_options=opts, after=lambda: bot.loop.create_task(after_song(con, False, False)))
             servers_songs[con.message.server.id] = song
@@ -186,12 +188,13 @@ async def play(con, *, url):
                 servers_songs[con.message.server.id].start()
                 r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(url)).json()
                 pack = discord.Embed(title=r['items'][0]['snippet']['title'],
-                                     url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId']))
+                                     url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId'])
+                                     colour=#1ce4b6)
                 pack.set_thumbnail(
                     url=r['items'][0]['snippet']['thumbnails']['default']['url'])
                 pack.add_field(name="Requested by:",
                                value=con.message.author.name)
-                pack.set_footer(text='Music Bot, developed by Kido')
+                pack.set_footer(text='TTG Bot, developed by Kido', icon_url='https://image.thanhnien.vn/665/uploaded/badiep/2018_03_12/14720536_1797565987159824_7956249866022643798_n_njek.jpg')
                 msg = await bot.send_message(con.message.channel, embed=pack)
                 now_playing[con.message.server.id] = msg
                 song_names[con.message.server.id].pop(0)
