@@ -80,7 +80,7 @@ async def bg():
 async def on_ready():
     bot.loop.create_task(bg())
     print(bot.user.name)
-    await bot.change_presence(game=discord.Game(name="Mua Gaming Gear, Console, Áo TTG tại TTGShop  27 Võ Văn Dũng, Đống Đa, Hà Nội. Website: ttgshop.vn"))
+    await bot.change_presence(game=discord.Game(name="Mua Gaming Gear, Console, Áo TTG tại TTGShop  27 Võ Văn Dũng, Đống Đa, Hà Nội. Website: ttgshop.vn"), status=discord.Status('dnd'))
 
 
 @bot.event
@@ -138,7 +138,8 @@ async def queue_songs(con, skip, clear):
             r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(
                 song_names[con.message.server.id][0])).json()
             pack = discord.Embed(title=r['items'][0]['snippet']['title'],
-                                 url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId']))
+                                 url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId'])
+                                 color=discord.Color.red())
             pack.set_thumbnail(url=r['items'][0]['snippet']
                                ['thumbnails']['default']['url'])
             pack.add_field(name="Requested by:", value=con.message.author.name)
@@ -187,7 +188,8 @@ async def play(con, *, url):
                 servers_songs[con.message.server.id].start()
                 r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(url)).json()
                 pack = discord.Embed(title=r['items'][0]['snippet']['title'],
-                                     url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId']))
+                                     url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId'])
+                                     color=discord.Color.red())
                 pack.set_thumbnail(
                     url=r['items'][0]['snippet']['thumbnails']['default']['url'])
                 pack.add_field(name="Requested by:",
