@@ -138,8 +138,7 @@ async def queue_songs(con, skip, clear):
             r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(
                 song_names[con.message.server.id][0])).json()
             pack = discord.Embed(title=r['items'][0]['snippet']['title'],
-                                 url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId'])
-                                 color=discord.Color.red())
+                                 url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId']))
             pack.set_thumbnail(url=r['items'][0]['snippet']
                                ['thumbnails']['default']['url'])
             pack.add_field(name="Requested by:", value=con.message.author.name)
@@ -188,8 +187,7 @@ async def play(con, *, url):
                 servers_songs[con.message.server.id].start()
                 r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(url)).json()
                 pack = discord.Embed(title=r['items'][0]['snippet']['title'],
-                                     url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId'])
-                                     color=discord.Color.red())
+                                     url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId']))
                 pack.set_thumbnail(
                     url=r['items'][0]['snippet']['thumbnails']['default']['url'])
                 pack.add_field(name="Requested by:",
